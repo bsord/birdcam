@@ -38,7 +38,8 @@ export default function Home() {
           {events.map((event)=>(
             <a href="https://nextjs.org/docs" className={styles.card}>
               <h2>{event.message}</h2>
-              <img src={event.image} alt={event.date} width='100%'/>
+              <img src={event.image} alt={event.message} width='100%'/>
+              <p>{event.date}</p>
             </a>
           ))}
           
