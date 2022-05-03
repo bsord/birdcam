@@ -18,8 +18,11 @@ Basic start-up:
 
 Advanced start-up:
 
-`python3 main.py --port 8000 --debug --slack-token=[SLACKTOKEN] --slack-channel='#birdcam' --detection-delay=10 `
+`python3 main.py --port 8000 --debug --slack-token=[SLACKTOKEN] --slack-channel='#birdcam' --detection-delay=10`
 
+Upload event/media via http post to server:
+
+`python3 main.py --port 8000 --debug --detection-delay=10 --upload-url http://[REMOTE SERVER IP]:3000/api/events`
 
 Configure boot time startup:
 
@@ -33,3 +36,4 @@ Add the below text just before the `exit 0` line
 View Live feed:
 
 Open browser to http://localhost:8000
+
