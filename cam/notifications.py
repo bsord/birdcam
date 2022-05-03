@@ -29,3 +29,13 @@ def post_file_to_slack(
         'title': title
       },
       files = { 'file': file_bytes }).json()
+
+def post_to_http_service(
+  url, text, files
+):
+    return requests.post(
+      url, 
+      {
+        'text': text,
+      },
+      files = files).json()

@@ -1,8 +1,8 @@
 import argparse
 import cv2
 from datetime import datetime, timedelta
-from notifications import post_message_to_slack
 from notifications import post_file_to_slack
+from notifications import post_to_http_service
 from object_detector import ObjectDetector
 from object_detector import ObjectDetectorOptions
 from image_classifier import ImageClassifier
@@ -36,6 +36,7 @@ parser.add_argument('--flipFrame', help='Flip orientation of camera', required=F
 parser.add_argument('--savePath', help='Path to save photos and video recordings of detections', required=False, default='_saved_content/')
 parser.add_argument('--enableClassification', help='Enable secondary processing to classify detected object', action="store_true")
 parser.add_argument('--objects-to-detect', nargs='+', default=["person"])
+parser.add_argument("--upload-url", help="http endpoint to post event with media to")
 
 # Global variable definitions
 args = parser.parse_args() 
@@ -182,9 +183,6 @@ def detectObject():
 
                     # Send notification
                     if args.slack_token and args.slack_channel:
-                        return_key, encoded_image = cv2.imencode(".jpg", video_frames[0])
-                        if not return_key:
-                            continue
                         try:
                             video_file = open(args.savePath + 'motion-%s.mp4' % timestamp, "rb")
                             image_file = open(args.savePath + 'motion-%s.jpg' % timestamp, "rb")
@@ -206,6 +204,19 @@ def detectObject():
                         except Exception as e:
                             print(f"Failed to post a notification message: {e}" )
                             continue
+
+                    # Upload event to http service
+                    if args.upload_url:
+                        event_message = '%s detected' % detection_label
+                        video_file = open(args.savePath + 'motion-%s.mp4' % timestamp, "rb")
+                        image_file = open(args.savePath + 'motion-%s.jpg' % timestamp, "rb")
+
+                        files = []
+                        files.append(("file", (args.savePath + 'motion-%s.jpg' % timestamp, image_file, 'image/jpg')))
+                        files.append(("file", (args.savePath + 'motion-%s.mp4' % timestamp, video_file, 'video/mp4')))
+
+                        post_to_http_service(args.upload_url, event_message, files)
+
                     
                     # Remove capture files if not configured to save
                     if not args.save:
