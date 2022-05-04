@@ -212,8 +212,8 @@ def detectObject():
                         image_file = open(args.savePath + 'motion-%s.jpg' % timestamp, "rb")
 
                         files = []
-                        files.append(("file", (args.savePath + 'motion-%s.jpg' % timestamp, image_file, 'image/jpg')))
-                        files.append(("file", (args.savePath + 'motion-%s.mp4' % timestamp, video_file, 'video/mp4')))
+                        files.append(("image", (args.savePath + 'motion-%s.jpg' % timestamp, image_file, 'image/jpg')))
+                        files.append(("video", (args.savePath + 'motion-%s.mp4' % timestamp, video_file, 'video/mp4')))
 
                         post_to_http_service(args.upload_url, event_message, files)
 
