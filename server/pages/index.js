@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   const [events, setEvents] = useState(null)
   const [isLoading, setLoading] = useState(false)
+  const [video, setVideo] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -35,29 +36,29 @@ export default function Home() {
 
         <div className={styles.grid}>
           {events.map((event, key)=>(
-            <a key={key} href="https://nextjs.org/docs" className={styles.card}>
+            <a key={key} href="#" className={styles.card} onClick={(e)=>{setVideo(event.video)}}>
               <h2>{event.message}</h2>
               <img src={event.image} alt={event.message} width='100%'/>
               <p>{event.date}</p>
             </a>
           ))}
           
-
+            {video?
+              <div className={styles.overlay}>
+                <div className={styles.main} onClick={(e)=>{setVideo(false)}}>
+                  <video controls >
+                    <source src={video} type="video/mp4"/>
+                    Sorry, your browser doesn't support embedded videos.
+                  </video>
+                </div>
+              </div>
+            : null}
           
         </div>
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+        <p>Made with ❤ </p>
       </footer>
     </div>
   )
