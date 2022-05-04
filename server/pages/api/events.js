@@ -67,7 +67,7 @@ export default async function handler(req, res) {
         };
         res.json(events);
       })
-      
+
       break;
 
 
@@ -91,6 +91,7 @@ export default async function handler(req, res) {
         res.json({msg: 'success'});
       });
 
+      
       break;
 
     default:

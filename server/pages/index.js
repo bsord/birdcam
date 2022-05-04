@@ -19,7 +19,6 @@ export default function Home() {
 
   if (isLoading) return <p>Loading...</p>
   if (!events) return <p>No Events</p>
-  console.log(events)
   return (
     
     <div className={styles.container}>
@@ -35,8 +34,8 @@ export default function Home() {
         </h1>
 
         <div className={styles.grid}>
-          {events.map((event)=>(
-            <a href="https://nextjs.org/docs" className={styles.card}>
+          {events.map((event, key)=>(
+            <a key={key} href="https://nextjs.org/docs" className={styles.card}>
               <h2>{event.message}</h2>
               <img src={event.image} alt={event.message} width='100%'/>
               <p>{event.date}</p>
