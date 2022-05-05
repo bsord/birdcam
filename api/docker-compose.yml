@@ -1,8 +1,8 @@
 version: '3.7'
 services:
 
-  detection-server:
-    container_name: detection-server
+  api:
+    container_name: api
     image: node:alpine
     working_dir: /app
     command: sh -c "npm install && npm start"
@@ -18,3 +18,20 @@ services:
       - MONGOURI=${MONGOURI}
     ports:
       - 3000:3000
+  api:
+    container_name: api
+    image: node:alpine
+    working_dir: /app
+    command: sh -c "npm install && npm start"
+    
+    restart: always
+    volumes:
+      - .:/app
+    environment:
+      - S3_ACCESSKEYID=${S3_ACCESSKEYID}
+      - S3_SECRETACCESSKEY=${S3_SECRETACCESSKEY}
+      - S3_ENDPOINT=${S3_ENDPOINT}
+      - S3_BUCKET=${S3_BUCKET}
+      - MONGOURI=${MONGOURI}
+    ports:
+      - 3001:3000
