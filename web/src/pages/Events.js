@@ -56,8 +56,6 @@ function Events() {
           minH="100vh"
         >
           <Grid templateColumns={['repeat(1, 1fr)','repeat(1, 1fr)','repeat(2, 1fr)','repeat(3, 1fr)']} gap={4}>
-
-              {console.log(eventData)}
               { 
                 eventData.map((singleEvent) =>(
                   <Box maxW='lg' borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -85,6 +83,19 @@ function Events() {
                         isTruncated
                       >
                         {singleEvent.message}
+                      </Box>
+
+                      <Box display='flex' alignItems='baseline'>
+                        <Box
+                          color='gray.500'
+                          fontWeight='semibold'
+                          letterSpacing='wide'
+                          fontSize='xs'
+                          textTransform='uppercase'
+                          ml='2'
+                        >
+                          {singleEvent.deviceId}
+                        </Box>
                       </Box>
 
                     </Box>

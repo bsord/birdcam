@@ -6,6 +6,7 @@ var EventSchema = new Schema({
   video: String,
   date: Date,
   message: String,
+  deviceId: String,
 });
 
 module.exports = mongoose.model('event', EventSchema );

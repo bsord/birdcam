@@ -11,7 +11,8 @@ exports.createEvent = (req, res) => {
     image: req.files['image'][0].location,
     video: req.files['video'][0].location,
     date: Date.now(),
-    message: req.body.text
+    message: req.body.text,
+    deviceId: req.body.deviceId
   }
 
   EventsCntlr.create(eventData)
